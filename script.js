@@ -12,6 +12,25 @@ function getHasil (comp, player) {
     if (player == 'orang') return (comp == 'gajah') ? 'KALAH' : 'MENANG!'
 }
 
+function rotate () {
+    const imgComputer = document.querySelector('.img-computer');
+    const gambar = ['gajah','orang','semut'];
+    let i = 0
+    const waktuMulai = new Date().getTime()
+    setInterval(function() {
+        if (new Date().getTime() - waktuMulai > 1000) {
+            clearInterval;
+            return
+        }
+        imgComputer.setAttribute('src',`images/${gambar[i++]}.jpg`)
+        if(i == gambar.length) i = 0;
+        return
+    },100);
+}
+
+
+
+
 const pilihan = document.querySelectorAll('li img')
 pilihan.forEach(function (pil)  {
     pil.addEventListener('click', function() {
@@ -19,11 +38,17 @@ pilihan.forEach(function (pil)  {
         const pilihanPlayer = pil.className;
         const hasil = getHasil(pilihanComputer, pilihanPlayer);
 
-        const imgComputer = document.querySelector('.img-computer')
-        imgComputer.setAttribute('src',`images/${pilihanComputer}.jpg`);
+        rotate()
 
-        const info = document.getElementById('info')
-        info.innerHTML = hasil;
+        setTimeout(function(){
+            const imgComputer = document.querySelector('.img-computer')
+            imgComputer.setAttribute('src',`images/${pilihanComputer}.jpg`);
+    
+            const info = document.getElementById('info')
+            info.innerHTML = hasil;
+
+        },1000)
+        
     })
 }) 
 
